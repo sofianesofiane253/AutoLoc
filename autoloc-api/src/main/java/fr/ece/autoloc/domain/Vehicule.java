@@ -6,12 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
+import java.util.List;
+import java.util.ArrayList;
 @Entity
 @Table(name = "vehicule")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +35,18 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Agence agence;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Equipement> equipement = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicule", fetch = FetchType.LAZY)
+    private List<Reservation> reservation  = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicule", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Maintenance> maintenance  = new ArrayList<>();
+
 }
