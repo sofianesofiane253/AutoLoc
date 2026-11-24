@@ -38,4 +38,5 @@ public class Contrat {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Reservation reservation;
+
 }

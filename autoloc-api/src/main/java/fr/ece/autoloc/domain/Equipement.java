@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.FetchType;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 @Entity
 @Table(name = "equipement")
 @Getter
@@ -25,6 +27,6 @@ public class Equipement {
     @Column(nullable = false, length = 100)
     private String libelle;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Vehicule> vehicule = new ArrayList<>();
+    @ManyToMany(mappedBy = "equipement", fetch = FetchType.LAZY)
+    private Set<Vehicule> vehicule = new HashSet<>();
 }
